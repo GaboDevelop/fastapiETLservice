@@ -1,11 +1,14 @@
 from typing import Generator
+from app.database.mongo import Mongo
 
-from app.database.session import SessionLocal
-
-
+db = Mongo.initialize(
+    Mongo,
+    'mongodb+srv://gabodevelop:etlservice123@cluster0.5telvkv.mongodb.net/test',
+    'etl_service'
+)
 def get_db() -> Generator:
-    try:
-        db = SessionLocal()
-        yield db
-    finally:
-        db.close()
+    # try:
+    return db
+    # finally:
+    #     print(db)
+    #     db.close()
