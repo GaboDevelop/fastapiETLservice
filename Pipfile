@@ -18,6 +18,7 @@ python-multipart = "*"
 requests = "*"
 python-dotenv = "*"
 pymongo = "*"
+dnspython = "*"
 
 [requires]
 python_version = "3.8"
