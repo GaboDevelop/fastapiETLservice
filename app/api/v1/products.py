@@ -19,7 +19,7 @@ def read_products(db=get_db(), skip: int = 0, limit: int = 100) -> Any:
     #products = crud.product.get_multi(db, skip=skip, limit=limit)
     db = Mongo()
     db.initialize(
-        'mongodb+srv://gabodevelop:1234@cluster0.5telvkv.mongodb.net/?retryWrites=true&w=majority',
+        'mongodb+srv://oscar:1234@cluster0.5telvkv.mongodb.net/?retryWrites=true&w=majority',
         'etl_service'
     )
     return db.find('sale_orders', {})

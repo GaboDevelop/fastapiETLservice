@@ -14,7 +14,14 @@ class Mongo(object):
         self.database[collection].insert(data)
 
     def find(self, collection, query):
-        return list(self.database[collection].find(query))
+        res = list(
+            self.database[collection].find(
+                query,
+                { "first_name": 1, '_id': 0}
+            )
+        )
+        print(res)
+        return res
 
     def find_one(self, collection, query):
         return self.database[collection].find_one(query)
