@@ -1,2 +1,1 @@
-from app.schemas.message import Message
-from app.schemas.product import ProductBase, ProductCreate, ProductUpdate, ProductResponse
+from app.schemas.sale_order import SaleOrderResponse, SaleOrderBase, SaleOrderCreate, SaleOrderUpdate

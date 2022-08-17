@@ -19,6 +19,7 @@ requests = "*"
 python-dotenv = "*"
 pymongo = "*"
 dnspython = "*"
+mongoengine = "*"
 
 [requires]
 python_version = "3.8"

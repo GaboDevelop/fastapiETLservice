@@ -1,10 +1,8 @@
-from app.database.initialise import initialise
-from app.database.session import SessionLocal
+from app.database.mongo import Mongo
 
 
 def init() -> None:
-    db = SessionLocal()
-    initialise(db)
+    db = Mongo()
 
 
 def main() -> None:

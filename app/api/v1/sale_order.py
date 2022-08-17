@@ -1,28 +1,19 @@
 from typing import Any, List
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-
 from app import schemas, crud
-from app.api.deps import get_db
-from app.database.mongo import Mongo
 
 router = APIRouter()
 
 
-# @router.get("", response_model=List[schemas.ProductResponse])
-@router.get("")
-def read_products(db=get_db(), skip: int = 0, limit: int = 100) -> Any:
+@router.get("", response_model=List[schemas.SaleOrderResponse])
+def read_orders(skip: int = 0, limit: int = 100) -> Any:
     """
     Retrieve all products.
     """
-    #products = crud.product.get_multi(db, skip=skip, limit=limit)
-    db = Mongo()
-    db.initialize(
-        'mongodb+srv://oscar:1234@cluster0.5telvkv.mongodb.net/?retryWrites=true&w=majority',
-        'etl_service'
-    )
-    return db.find('sale_orders', {})
+    print("AQUI 1")
+    orders = crud.sale_order.get_all(skip=skip, limit=limit)
+    return orders
 
 
 # @router.post("", response_model=schemas.ProductResponse)
