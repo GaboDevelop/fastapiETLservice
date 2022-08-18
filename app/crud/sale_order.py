@@ -13,7 +13,7 @@ UpdateSchemaType = TypeVar("UpdateSchemaType", bound=SaleOrderUpdate)
 
 class CRUDSaleOrder(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     model = None
-    mongo = None
+    mongo = Mongo()
 
     def __init__(self, model: Type[ModelType]):
         """
@@ -22,22 +22,25 @@ class CRUDSaleOrder(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         * `model`: A Mongo Collection model class
         * `schema`: A Pydantic model (schema) class
         """
-        print("AQUI 2")
         self.model = model
-        print(model)
-        self.mongo = Mongo()
-        print(self.mongo)
+        self.mongo.initialize()
 
-    def create(self, data: CreateSchemaType) -> ModelType:
-        new_user = self.model(data)
+    def create(self, data: CreateSchemaType) -> dict:
+        new_user = self.model(**data)
         new_user.save()
-        return new_user.to_json()
+        return {
+            '_id': new_user.pk,
+            'amount': new_user.amount,
+            'number_order': new_user.number_order
+        }
 
     def get_all(self, skip: int = 0, limit: int = 100) -> List[ModelType]:
-        print("AQUI 3")
-        print(self.model)
-        connect(host="DB_URI")
-        return self.model.objects.to_json()
+        try:
+            res = self.model.objects
+            return list(res)
+        except:
+            print("Error en consulta get_all")
+            return []
 
     # def get(self, id: Any) -> Optional[ModelType]:
     #     return True

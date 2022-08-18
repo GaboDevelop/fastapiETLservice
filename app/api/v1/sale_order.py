@@ -11,19 +11,18 @@ def read_orders(skip: int = 0, limit: int = 100) -> Any:
     """
     Retrieve all products.
     """
-    print("AQUI 1")
     orders = crud.sale_order.get_all(skip=skip, limit=limit)
     return orders
 
 
-# @router.post("", response_model=schemas.ProductResponse)
-# def create_product(*, db: Session = Depends(get_db), product_in: schemas.ProductCreate) -> Any:
-#     """
-#     Create new products.
-#     """
-#     #product = crud.product.create(db, obj_in=product_in)
-#     return product
-
+@router.post("", response_model=schemas.SaleOrderCreate)
+def create_product(*, product_in: schemas.SaleOrderBase) -> Any:
+    """
+    Create new products.
+    """
+    data = dict(product_in)
+    product = crud.sale_order.create(data=data)
+    return product
 
 # @router.put("", response_model=schemas.ProductResponse)
 # def update_product(*, db: Session = Depends(get_db), product_in: schemas.ProductUpdate) -> Any:
